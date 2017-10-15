@@ -7,6 +7,11 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <style>
+  .icon-remove,.icon-check{
+    display: none;
+  }
+  </style>
 </head>
 <body>
 <section class="hero hero-body is-dark container">
@@ -21,7 +26,7 @@
       <span class="icon is-small is-left">
         <i class="fa fa-map-pin"></i>
       </span>
-      <span class="icon is-small is-right">
+      <span class="icon is-small is-right icon-check">
         <i class="fa fa-check"></i>
       </span>
       <span class="icon is-small is-right icon-remove">
@@ -31,5 +36,21 @@
     </div>
 </form>
 </section>
+<br>
+<div class="container">
+  <div class="output">
+
+  </div>
+</div>
+<script type="text/javascript">
+  document.querySelector('#zipForm').addEventListener('submit',getLocationInfo);
+  function getLocationInfo(e){
+    const zip=document.querySelector('.zip').value;
+    fetch(`http://api.zippopotam.us/us/${zip}`).then(response=>response.json()).then(data=>{
+      console.log(data);
+    });
+    e.preventDefault();
+  }
+</script>
 </body>
 </html>
