@@ -44,6 +44,7 @@
 </div>
 <script type="text/javascript">
   document.querySelector('#zipForm').addEventListener('submit',getLocationInfo);
+    document.querySelector('body').addEventListener('click',deleteLocation);
   function getLocationInfo(e){
     const zip=document.querySelector('.zip').value;
     fetch(`http://api.zippopotam.us/us/${zip}`).then(response=>{
@@ -65,11 +66,12 @@
           </div>
           <div class="message-body">
             <ul>
-              <li><strong>City:</strong</li>
+              <li><strong>City:</strong>${place['place name']}</li>
             </ul>
           </div>
-        </article>`
+        </article>`;
       });
+      document.querySelector('#output').innerHTML=output;
     })
     .catch(err=>console.log(err));
     e.preventDefault();
@@ -78,6 +80,13 @@
     document.querySelector('.icon-remove').style.display='none';
     document.querySelector('.icon-check').style.display='none';
     document.querySelector(`.icon-${icon}`).style.display='inline-flex';
+  }
+  function deleteLocation(e){
+    if(e.target.className=='delete'){
+      document.querySelector('.message').remove();
+        document.querySelector('.zip').value='';
+          document.querySelector('.icon-check').remove();
+    }
   }
 </script>
 </body>
